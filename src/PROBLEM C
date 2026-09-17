@@ -1,0 +1,57 @@
+class InvalidReadingException extends Exception {
+
+    public InvalidReadingException(String message) {
+        super(message);
+    }
+}
+
+class WaterMeterTracker {
+
+    private double previousReading;
+
+    public WaterMeterTracker(double initialReading) {
+        this.previousReading = initialReading;
+    }
+
+    public void updateReading(double newReading)
+            throws InvalidReadingException {
+
+        if (newReading < previousReading) {
+            throw new InvalidReadingException(
+                "Invalid Reading Error: New reading (" + newReading
+                + " kL) is lower than previous reading ("
+                + previousReading + " kL)!"
+            );
+        }
+
+        System.out.println(
+            "Reading updated successfully: " + newReading + " kL"
+        );
+
+        this.previousReading = newReading;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        WaterMeterTracker tracker =
+            new WaterMeterTracker(500.0);
+
+        try {
+
+            System.out.println("First Update Attempt (Valid):");
+            tracker.updateReading(520.5);
+
+            System.out.println("Second Update Attempt (Invalid):");
+            tracker.updateReading(510.0);
+
+        } catch (InvalidReadingException e) {
+
+            System.out.println(
+                "Exception Caught: " + e.getMessage()
+            );
+        }
+    }
+}
