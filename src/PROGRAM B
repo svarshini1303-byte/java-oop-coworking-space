@@ -1,0 +1,45 @@
+abstract class Billing {
+    String consumerId;
+    double ratePerUnit;
+
+    Billing(String consumerId, double ratePerUnit) {
+        this.consumerId = consumerId;
+        this.ratePerUnit = ratePerUnit;
+    }
+
+    abstract void generateBill(double unitsConsumed);
+}
+
+class MonthlyBilling extends Billing {
+    String month;
+
+    MonthlyBilling(String consumerId, double ratePerUnit, String month) {
+        super(consumerId, ratePerUnit);
+        this.month = month;
+    }
+
+    @Override
+    void generateBill(double unitsConsumed) {
+        double totalAmount = unitsConsumed * ratePerUnit;
+
+        System.out.println("Monthly Billing Details");
+        System.out.println("-----------------------");
+        System.out.println("Consumer ID     : " + consumerId);
+        System.out.println("Month           : " + month);
+        System.out.println("Units Consumed  : " + unitsConsumed + " kL");
+        System.out.println("Rate Per Unit   : Rs. " + ratePerUnit);
+        System.out.println("Total Amount    : Rs. " + totalAmount);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Billing bill = new MonthlyBilling(
+            "CONS-8821",
+            12.50,
+            "September 2026"
+        );
+
+        bill.generateBill(32.0);
+    }
+}
