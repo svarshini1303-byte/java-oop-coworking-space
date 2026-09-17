@@ -1,0 +1,38 @@
+class Meter {
+    String meterId;
+    double reading;
+
+    Meter(String meterId, double reading) {
+        this.meterId = meterId;
+        this.reading = reading;
+    }
+
+    void display() {
+        System.out.println("Meter ID: " + meterId);
+        System.out.println("Reading: " + reading + " kL");
+    }
+}
+
+class SmartMeter extends Meter {
+    boolean wirelessEnabled;
+
+    SmartMeter(String meterId, double reading, boolean wirelessEnabled) {
+        super(meterId, reading);
+        this.wirelessEnabled = wirelessEnabled;
+    }
+
+    @Override
+    void display() {
+        System.out.println("Smart Meter Details");
+        System.out.println("Meter ID: " + meterId);
+        System.out.println("Reading: " + reading + " kL");
+        System.out.println("Wireless Enabled: " + wirelessEnabled);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SmartMeter smartMeter = new SmartMeter("WM-1029", 450.75, true);
+        smartMeter.display();
+    }
+}
